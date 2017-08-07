@@ -60,3 +60,4 @@ typings/
 .env
 
 .idea/
+gapps.config.json
