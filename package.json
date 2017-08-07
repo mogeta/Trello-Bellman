@@ -1,0 +1,20 @@
+{
+  "name": "Trello-Bellman",
+  "version": "0.0.1",
+  "main": "src/main.js",
+  "author": "mogeta<muzigen@gmail.com>",
+  "private": true,
+  "scripts": {
+    "publish": "npm run build && npm run upload",
+    "build": "npm run tsc",
+    "tsc": "tsc",
+    "upload": "gapps upload"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "devDependencies": {
+    "@types/google-apps-script": "0.0.11"
+  }
+}
