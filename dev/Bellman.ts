@@ -1,3 +1,6 @@
+import Board = TrelloConst.Board;
+import Card = TrelloConst.Card;
+
 class Bellman{
     private key:string;
     private token:string;
@@ -35,16 +38,18 @@ class Bellman{
         Logger.log(UrlFetchApp.fetch(`https://api.trello.com/1/cards/?key=${this.key}&token=${this.token}`,options));
     }
 
-    getLists(boardID:string) {
+    getLists(boardID:string):Board {
 
         var response = UrlFetchApp.fetch(`https://api.trello.com/1/boards/${boardID}/lists?key=${this.key}&token=${this.token}&fields=name`);
-        return JSON.parse(response.getContentText());
+        var res:Board = JSON.parse(response.getContentText());
+        return res;
     }
 
     //リスト内、カード配列取得
-    getCards(list:any){
-        var response = UrlFetchApp.fetch(`https://api.trello.com/1/lists/${list}/cards?key=${this.key}&token=${this.token}`);
-        return JSON.parse(response.getContentText());
+    getCards(listID:string):Card[]{
+        var response = UrlFetchApp.fetch(`https://api.trello.com/1/lists/${listID}/cards?key=${this.key}&token=${this.token}`);
+        var res:Card[] = JSON.parse(response.getContentText());
+        return res;
     }
 
 }
