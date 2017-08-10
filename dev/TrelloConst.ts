@@ -1,6 +1,6 @@
 declare module TrelloConst {
 
-    export interface Board {
+    export interface List {
         id: string;
         name: string;
     }

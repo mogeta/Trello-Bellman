@@ -1,7 +1,7 @@
-import Board = TrelloConst.Board;
+import Board = TrelloConst.List;
 import Card = TrelloConst.Card;
 
-class Bellman{
+class Trello{
     private key:string;
     private token:string;
 
@@ -38,10 +38,10 @@ class Bellman{
         Logger.log(UrlFetchApp.fetch(`https://api.trello.com/1/cards/?key=${this.key}&token=${this.token}`,options));
     }
 
-    getLists(boardID:string):Board {
+    getLists(boardID:string):List[] {
 
         var response = UrlFetchApp.fetch(`https://api.trello.com/1/boards/${boardID}/lists?key=${this.key}&token=${this.token}&fields=name`);
-        var res:Board = JSON.parse(response.getContentText());
+        var res:List[] = JSON.parse(response.getContentText());
         return res;
     }
 
