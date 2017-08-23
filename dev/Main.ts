@@ -1,12 +1,12 @@
 //gas document
 //https://developers.google.com/apps-script/reference/calendar/
-//how to get trello token
-//https://trello.com/1/authorize?key=<上で取得したKey>&name=&expiration=never&response_type=token&scope=read,write
+//how to get trello trelloToken
+//https://trello.com/1/authorize?key=<上で取得したKey>&name=&expiration=never&response_type=trelloToken&scope=read,write
 import List = TrelloConst.List;
 
 var properties = PropertiesService.getScriptProperties()
-var key:string = properties.getProperty("trello_key");
-var token:string = properties.getProperty("trello_token");
+var trelloKey:string = properties.getProperty("trello_key");
+var trelloToken:string = properties.getProperty("trello_token");
 var targetBoardID:string = properties.getProperty("trello_board_id");
 var targetSheetID:string = properties.getProperty("sheet_id");
 var slackToken:string = properties.getProperty("slack_token");
@@ -16,7 +16,9 @@ var slackChannel:string = properties.getProperty("slack_post_channel");
 //https://developers.google.com/apps-script/guides/html/
 function doGet(e:any){
     var params = JSON.stringify(e);
-    return HtmlService.createHtmlOutputFromFile('Index');
+    return HtmlService
+        .createTemplateFromFile('Index')
+        .evaluate();
 }
 
 function doPost(e:any){
@@ -25,7 +27,7 @@ function doPost(e:any){
 
 //Trello上のListsを取得する
 function getLists(boardID:string):List[]{
-    var trello:Trello = new Trello(key,token);
+    var trello:Trello = new Trello(trelloKey,trelloToken);
     var list = trello.getLists(boardID);
     Logger.log(list);
     return list;
@@ -33,7 +35,7 @@ function getLists(boardID:string):List[]{
 
 //Trello上、指定ListのCardを取得する
 function getCards(listID:string){
-    var trello:Trello = new Trello(key,token);
+    var trello:Trello = new Trello(trelloKey,trelloToken);
     var list = trello.getCards(listID);
 
     for (let entry of list) {

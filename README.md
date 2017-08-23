@@ -10,7 +10,12 @@
 
 ## 参考ドキュメント
 
+* https://developers.google.com/apps-script/reference/
 * https://hori-ryota.com/blog/googleappsscript-by-typescript/
+
+## Lib
+
+* https://cdnjs.com/libraries/materialize
 
 # TODO
 
