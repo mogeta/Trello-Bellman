@@ -24,21 +24,35 @@ class Trello {
   }
 
   addCard(listID: string, name: string, desc: any) {
-    let options = {
+    let payload = {
+      name: name,
+      desc: desc,
+      due: '',
+      idList: listID,
+      urlSource: ''
+    };
+
+    let request: URLFetchRequestOptions = {
       method: 'post',
       muteHttpExceptions: true,
-      payload: {
-        name: name,
-        desc: desc,
-        due: '',
-        idList: listID,
-        urlSource: ''
-      }
+      payload: JSON.stringify(payload)
     };
+
+    // let options = {
+    //   method: 'post',
+    //   muteHttpExceptions: true,
+    //   payload: {
+    //     name: name,
+    //     desc: desc,
+    //     due: '',
+    //     idList: listID,
+    //     urlSource: ''
+    //   }
+    // };
     Logger.log(
       UrlFetchApp.fetch(
         `https://api.trello.com/1/cards/?key=${this.key}&token=${this.token}`,
-        options
+        request
       )
     );
   }

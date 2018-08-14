@@ -1,4 +1,6 @@
 //slackへの投稿等を担当。
+import URLFetchRequestOptions = GoogleAppsScript.URL_Fetch.URLFetchRequestOptions;
+
 class Slack {
   private POST_URL: string = 'https://slack.com/api/chat.postMessage';
   private token: string = '';
@@ -29,11 +31,15 @@ class Slack {
       icon_emoji: icon_emoji
     };
 
+    var request: URLFetchRequestOptions;
+    request.method = 'post';
+    request.payload = payload.toString();
+
     var params = {
       method: method,
       payload: payload
     };
 
-    var response = UrlFetchApp.fetch(url, params);
+    var response = UrlFetchApp.fetch(url, request);
   }
 }
