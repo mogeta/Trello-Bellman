@@ -1,15 +1,7 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "outDir": "./src",
-    "rootDir": "./dev",
-
-    "inlineSourceMap": true,
-    "noEmitOnError": true,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "pretty": true,
-    "strictNullChecks": true
+    "sourceMap": true,
+    "target": "es5",
+    "module": "es2015"
   }
 }

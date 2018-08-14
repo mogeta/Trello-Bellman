@@ -12,6 +12,8 @@
 
 * https://developers.google.com/apps-script/reference/
 * https://hori-ryota.com/blog/googleappsscript-by-typescript/
+* https://qiita.com/suin/items/b264092eab3ce553f16a
+* https://github.com/google/clasp
 
 ## Lib
 
