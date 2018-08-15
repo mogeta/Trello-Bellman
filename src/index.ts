@@ -6,3 +6,9 @@ global.createNewFile = (): void => {
   const ss = SheetService.createInitialFile('New file');
   ss.getRange('A2').setValue('Happy gas!');
 };
+
+global.postSlack = (): void => {
+  let slack: Slack;
+  slack = new Slack('token');
+  slack.post('test ');
+};

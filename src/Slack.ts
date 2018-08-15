@@ -1,4 +1,3 @@
-//slackへの投稿等を担当。
 import URLFetchRequestOptions = GoogleAppsScript.URL_Fetch.URLFetchRequestOptions;
 
 class Slack {
@@ -33,12 +32,7 @@ class Slack {
 
     var request: URLFetchRequestOptions;
     request.method = 'post';
-    request.payload = payload.toString();
-
-    var params = {
-      method: method,
-      payload: payload
-    };
+    request.payload = JSON.stringify(payload);
 
     var response = UrlFetchApp.fetch(url, request);
   }
