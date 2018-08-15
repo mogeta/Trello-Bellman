@@ -61,7 +61,7 @@ export class Trello {
 		var response = UrlFetchApp.fetch(
 			`https://api.trello.com/1/boards/${boardID}/lists?key=${this.key}&token=${
 				this.token
-				}&fields=name`
+			}&fields=name`
 		);
 		var res: List[] = JSON.parse(response.getContentText());
 		return res;
