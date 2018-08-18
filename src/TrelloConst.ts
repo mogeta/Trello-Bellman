@@ -1,5 +1,5 @@
 declare namespace TrelloConst {
-	export interface List {
+	export interface CardList {
 		id: string;
 		name: string;
 	}

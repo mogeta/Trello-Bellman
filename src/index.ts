@@ -1,5 +1,6 @@
 import { SheetService } from './sheet.service';
 import { Trello } from './Trello';
+import CardList = TrelloConst.CardList;
 
 declare var global: any;
 
@@ -22,9 +23,20 @@ global.postSlack = (): void => {
 	slack.post('test ');
 };
 
+global.getStorypointAndPost = (): void => {
+	const trello = new Trello(trelloKey, trelloToken);
+	const slack = new Slack(slackToken);
+	const lists = trello.getLists(targetBoardID);
+	lists.forEach(function(list) {
+		const cards = trello.getCards(list.id);
+		const point = trello.getListStoryPoint(cards);
+		Logger.log(point);
+	});
+};
+
 //Trello上のListsを取得する
 global.getLists = (): void => {
 	var trello: Trello = new Trello(trelloKey, trelloToken);
-	var list = trello.getLists(targetBoardID);
+	const list: CardList[] = trello.getLists(targetBoardID);
 	Logger.log(list);
 };

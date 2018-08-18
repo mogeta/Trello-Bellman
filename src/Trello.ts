@@ -1,5 +1,5 @@
-import Board = TrelloConst.List;
 import Card = TrelloConst.Card;
+import CardList = TrelloConst.CardList;
 
 export class Trello {
 	private key: string;
@@ -27,13 +27,13 @@ export class Trello {
 		let payload = {
 			name: name,
 			desc: desc,
-			due: "",
+			due: '',
 			idList: listID,
-			urlSource: ""
+			urlSource: ''
 		};
 
 		let request: URLFetchRequestOptions = {
-			method: "post",
+			method: 'post',
 			muteHttpExceptions: true,
 			payload: JSON.stringify(payload)
 		};
@@ -57,13 +57,14 @@ export class Trello {
 		);
 	}
 
-	getLists(boardID: string): List[] {
+	getLists(boardID: string): CardList[] {
 		var response = UrlFetchApp.fetch(
 			`https://api.trello.com/1/boards/${boardID}/lists?key=${this.key}&token=${
 				this.token
 			}&fields=name`
 		);
-		var res: List[] = JSON.parse(response.getContentText());
+		const res = JSON.parse(response.getContentText()) as CardList[];
+		Logger.log(res);
 		return res;
 	}
 
