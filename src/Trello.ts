@@ -2,8 +2,8 @@ import Card = TrelloConst.Card;
 import CardList = TrelloConst.CardList;
 
 export class Trello {
-	private key: string;
-	private token: string;
+	private readonly key: string;
+	private readonly token: string;
 
 	public constructor(key: string, token: string) {
 		this.key = key;
@@ -11,11 +11,11 @@ export class Trello {
 	}
 
 	getListStoryPoint(cards: any[]) {
-		var total = 0;
-		var regexp = /\((.*)\)/;
+		let total = 0;
+		const regexp = /\((.*)\)/;
 
 		cards.forEach(function(row) {
-			var matchResult = row.name.match(regexp);
+			let matchResult = row.name.match(regexp);
 			if (matchResult != null) {
 				total += parseFloat(matchResult[1]);
 			}
@@ -38,17 +38,6 @@ export class Trello {
 			payload: JSON.stringify(payload)
 		};
 
-		// let options = {
-		//   method: 'post',
-		//   muteHttpExceptions: true,
-		//   payload: {
-		//     name: name,
-		//     desc: desc,
-		//     due: '',
-		//     idList: listID,
-		//     urlSource: ''
-		//   }
-		// };
 		Logger.log(
 			UrlFetchApp.fetch(
 				`https://api.trello.com/1/cards/?key=${this.key}&token=${this.token}`,
@@ -70,10 +59,9 @@ export class Trello {
 
 	//リスト内、カード配列取得
 	getCards(listID: string): Card[] {
-		var response = UrlFetchApp.fetch(
+		const response = UrlFetchApp.fetch(
 			`https://api.trello.com/1/lists/${listID}/cards?key=${this.key}&token=${this.token}`
 		);
-		var res: Card[] = JSON.parse(response.getContentText());
-		return res;
+		return JSON.parse(response.getContentText());
 	}
 }
