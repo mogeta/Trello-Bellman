@@ -1,7 +1,8 @@
 import { SheetService } from './sheet.service';
 import { Trello } from './Trello';
 import Spreadsheet = GoogleAppsScript.Spreadsheet;
-import { getDayFormat } from './util';
+import { getDayFormat, isMonday } from './util';
+import Integer = GoogleAppsScript.Integer;
 
 declare var global: any;
 
@@ -18,10 +19,10 @@ global.createNewFile = (): void => {
 	ss.getRange('A2').setValue('Happy gas!');
 };
 
-global.postSlack = (): void => {
+global.postSlack = (message: string): void => {
 	let slack: Slack;
 	slack = new Slack(slackToken);
-	slack.post('test ');
+	slack.post(message);
 };
 
 // タスク集計を行います。
@@ -36,7 +37,8 @@ global.execute = (): void => {
 		// Logger.log(point);
 		// Logger.log(lastPoints[index]);
 		if (index == 3) {
-			const diff = point - Number(lastPoints[index]);
+			//const diff = point - Number(lastPoints[index]);
+			const diff = getTodayDoneStorypoint(point, lastPoints[index]);
 			Logger.log('差分は' + diff);
 		}
 		index++;
@@ -44,6 +46,15 @@ global.execute = (): void => {
 	points.unshift(getDayFormat());
 	sheetService.append(points);
 };
+
+//月曜日はタスクがリセットされるので
+function getTodayDoneStorypoint(current, last) {
+	if (isMonday()) {
+		return current - last;
+	} else {
+		return current;
+	}
+}
 
 //Trello上のListsを取得する
 global.getStorypoints = (): Number[] => {
