@@ -3,6 +3,7 @@ import { Trello } from './Trello';
 import Spreadsheet = GoogleAppsScript.Spreadsheet;
 import { getDayFormat, isMonday } from './util';
 import Integer = GoogleAppsScript.Integer;
+import { Slack } from './Slack';
 
 declare var global: any;
 
@@ -20,8 +21,7 @@ global.createNewFile = (): void => {
 };
 
 global.postSlack = (message: string): void => {
-	let slack: Slack;
-	slack = new Slack(slackToken);
+	const slack = new Slack(slackToken);
 	slack.post(message);
 };
 
@@ -50,9 +50,9 @@ global.execute = (): void => {
 //月曜日はタスクがリセットされるので
 function getTodayDoneStorypoint(current, last) {
 	if (isMonday()) {
-		return current - last;
-	} else {
 		return current;
+	} else {
+		return current - last;
 	}
 }
 
@@ -75,4 +75,10 @@ global.getSheetData = (): Spreadsheet.Range => {
 	const range = sheetService.getLastRowRange(0);
 	Logger.log(range);
 	return range;
+};
+
+global.archiveList = (): void => {
+	const trello = new Trello(trelloKey, trelloToken);
+	trello.archiveAllCards(''); //TODO
+	global.postSlack(`Doneリストの'アーカイブが完了しました。今週もやっていきましょう。`);
 };

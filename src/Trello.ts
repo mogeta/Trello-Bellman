@@ -1,5 +1,6 @@
 import Card = TrelloConst.Card;
 import CardList = TrelloConst.CardList;
+import URLFetchRequestOptions = GoogleAppsScript.URL_Fetch.URLFetchRequestOptions;
 
 export class Trello {
 	private readonly key: string;
@@ -63,5 +64,18 @@ export class Trello {
 			`https://api.trello.com/1/lists/${listID}/cards?key=${this.key}&token=${this.token}`
 		);
 		return JSON.parse(response.getContentText());
+	}
+
+	archiveAllCards(listID: string) {
+		const request: URLFetchRequestOptions = {
+			method: 'post'
+		};
+		const response = UrlFetchApp.fetch(
+			`https://api.trello.com/1/lists/${listID}/archiveAllCards?key=${this.key}&token=${
+				this.token
+			}`,
+			request
+		);
+		Logger.log(response);
 	}
 }
