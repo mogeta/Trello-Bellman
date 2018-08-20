@@ -13,7 +13,7 @@ var trelloToken: string = properties.getProperty('trello_token');
 var targetBoardID: string = properties.getProperty('trello_board_id');
 var targetSheetID: string = properties.getProperty('sheet_id');
 var slackToken: string = properties.getProperty('slack_token');
-var slackChannel: string = properties.getProperty('slack_post_channel');
+var slackChannel: string = properties.getProperty('slack_channel_id');
 
 global.createNewFile = (): void => {
 	const ss = SheetService.createInitialFile('New file');
@@ -22,7 +22,7 @@ global.createNewFile = (): void => {
 
 global.postSlack = (message: string): void => {
 	const slack = new Slack(slackToken);
-	slack.post(message);
+	slack.post(message, slackChannel);
 };
 
 // タスク集計を行います。
