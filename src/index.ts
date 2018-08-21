@@ -40,7 +40,7 @@ global.execute = (): void => {
 		if (index == 3) {
 			//const diff = point - Number(lastPoints[index]);
 			const diff = getTodayDoneStorypoint(point, lastPoints[index]);
-			Logger.log('差分は' + diff);
+			global.postSlack(`ストーリーポイントの消化数は ${diff} です。お疲れ様でした。`);
 		}
 		index++;
 	});
