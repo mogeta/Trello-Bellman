@@ -8,7 +8,13 @@ export class Slack {
 		this.token = token;
 	}
 
-	public createPayload() {}
+	public chat(message: string, chan: string) {
+		const url = `https://slack.com/api/chat.postMessage?token=${
+			this.token
+		}&channel=${chan}&text=${message}`;
+		const response = UrlFetchApp.fetch(url);
+		Logger.log(response);
+	}
 
 	//https://api.slack.com/methods/chat.postMessage
 	public post(message: string, chan: string = 'general') {
@@ -22,7 +28,7 @@ export class Slack {
 
 		const payload = {
 			token: token,
-			channel: channel,// TODO
+			channel: channel, // TODO
 			text: text,
 			username: username,
 			parse: parse,

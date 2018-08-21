@@ -14,6 +14,7 @@ var targetBoardID: string = properties.getProperty('trello_board_id');
 var targetSheetID: string = properties.getProperty('sheet_id');
 var slackToken: string = properties.getProperty('slack_token');
 var slackChannel: string = properties.getProperty('slack_channel_id');
+var trelloArchiveTarget: string = properties.getProperty('trello_archive_target');
 
 global.createNewFile = (): void => {
 	const ss = SheetService.createInitialFile('New file');
@@ -22,7 +23,7 @@ global.createNewFile = (): void => {
 
 global.postSlack = (message: string): void => {
 	const slack = new Slack(slackToken);
-	slack.post(message, slackChannel);
+	slack.chat(message, slackChannel);
 };
 
 // タスク集計を行います。
@@ -79,6 +80,6 @@ global.getSheetData = (): Spreadsheet.Range => {
 
 global.archiveList = (): void => {
 	const trello = new Trello(trelloKey, trelloToken);
-	trello.archiveAllCards(''); //TODO
+	trello.archiveAllCards(trelloArchiveTarget); //TODO
 	global.postSlack(`Doneリストの'アーカイブが完了しました。今週もやっていきましょう。`);
 };
